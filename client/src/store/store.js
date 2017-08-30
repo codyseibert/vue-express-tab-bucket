@@ -18,13 +18,13 @@ const store = new Vuex.Store({
       state.selectedLanguage = selectedLanguage
     },
     setResults (state, results) {
-      state.results = results;
+      state.results = results
     },
     setToken (state, token) {
-      state.token = token;
+      state.token = token
     },
     setUser (state, user) {
-      state.user = user;
+      state.user = user
     }
   },
   actions: {
@@ -32,15 +32,15 @@ const store = new Vuex.Store({
       commit('setSelectedLanguage', selectedLanguage)
     },
     setResults ({commit}, results) {
-      commit('setResults', results);
+      commit('setResults', results)
     },
     setToken ({commit}, token) {
-      commit('setToken', token);
+      commit('setToken', token)
     },
     setUser ({commit}, user) {
-      commit('setUser', user);
+      commit('setUser', user)
     }
   }
 })
 
-export default store;
+export default store

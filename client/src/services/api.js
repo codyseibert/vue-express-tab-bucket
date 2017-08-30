@@ -1,6 +1,6 @@
-import axios from 'axios';
-import store from '../store/store';
-import base64 from 'base-64';
+import axios from 'axios'
+import store from '../store/store'
+// import base64 from 'base-64'
 
 export default () =>
   axios.create({

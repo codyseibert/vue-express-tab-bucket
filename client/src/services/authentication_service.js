@@ -1,10 +1,10 @@
 import api from './api'
 const pickData = (r) => r.data
 export default {
-  async login(info) {
+  login (info) {
     return api().post('login', info).then(pickData)
   },
-  async register(info) {
+  register (info) {
     return api().post('register', info).then(pickData)
   }
 }

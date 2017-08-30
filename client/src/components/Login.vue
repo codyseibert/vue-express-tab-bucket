@@ -43,13 +43,13 @@ export default {
           email: this.email,
           password: this.password
         })
-        this.$store.dispatch('setToken', info.token);
-        this.$store.dispatch('setUser', info.user);
+        this.$store.dispatch('setToken', info.token)
+        this.$store.dispatch('setUser', info.user)
         this.$router.push({
           name: 'snippits'
-        });
+        })
       } catch (err) {
-        this.invalid = true;
+        this.invalid = true
       }
     }
   }

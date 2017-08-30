@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     artist: DataTypes.INTEGER,
     genre: DataTypes.STRING,
     youtubeId: DataTypes.STRING,
-    lryics: DataTypes.TEXT,
+    lyrics: DataTypes.TEXT,
     tab: DataTypes.TEXT
   }, {
     classMethods: {

@@ -2,6 +2,13 @@
   <v-toolbar fixed class="cyan" dark>
     <v-toolbar-side-icon @click.stop="openDrawer"></v-toolbar-side-icon>
     <v-toolbar-title>Guitar Tabs</v-toolbar-title>
+
+    <router-link :to="{name: 'songs'}">
+      <v-btn flat dark>
+        <v-icon>music_note</v-icon> Songs
+      </v-btn>
+    </router-link>
+
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <router-link v-if="!$store.state.basicAuthHeader" :to="{name: 'login'}">
@@ -34,5 +41,12 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: white;
+}
 
+.icon {
+  color: white;
+}
 </style>

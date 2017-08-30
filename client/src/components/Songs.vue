@@ -1,11 +1,5 @@
 <template>
   <div>
-    <!-- <v-layout>
-      <v-flex>
-        <h4 class="text-xs-left">Songs Browser</h4>
-      </v-flex>
-    </v-layout> -->
-
     <v-layout>
       <v-flex xs4>
         <div class="white elevation-2">

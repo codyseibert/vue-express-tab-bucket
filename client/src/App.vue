@@ -1,21 +1,62 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <v-app>
+      <v-navigation-drawer
+        temporary
+        overflow
+        v-model="drawer" >
+        <div class="logo cyan">
+          CodePerfect
+          <br>
+          <v-icon>keyboard</v-icon>
+        </div>
+        <v-list class="pt-0" dense>
+          <!-- TODO: Refactor This -->
+          <v-list-tile @click="gotoRoute('snippits')">
+            <v-list-tile-action>
+              <v-icon>code</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Snippits</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>info</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>About</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-toolbar fixed class="cyan" dark>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-title>CodePerfect</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-sm-and-down">
+          <router-link v-if="!$store.state.token" :to="{name: 'login'}">
+            <v-btn flat>
+              <v-icon>login</v-icon> Login
+            </v-btn>
+          </router-link>
+        </v-toolbar-items>
+      </v-toolbar>
+
+      <main>
+        <v-container fluid>
+          <router-view></router-view>
+        </v-container>
+      </main>
+
+      <v-footer class="cyan">
+        <div class="text-xs-center" style="width: 100%; color: white;">
+          © Cody Seibert 2017
+        </div>
+      </v-footer>
+    </v-app>
   </div>
 </template>
 
@@ -24,7 +65,7 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      drawer: false
     }
   }
 }

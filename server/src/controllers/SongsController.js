@@ -1,8 +1,8 @@
-var Tab, Promise, _;
+var Song, Promise, _;
 
 Promise = require('bluebird');
 
-Tab = require('../models/tab');
+Song = require('../models/Song');
 
 _ = require('underscore');
 
@@ -17,7 +17,7 @@ module.exports = (function() {
         req.query[key] = null;
       }
     }
-    return Tab.findAll({
+    return Song.findAll({
       where: req.query
     }).then(function(entryies) {
       res.status(200);
@@ -25,13 +25,13 @@ module.exports = (function() {
     });
   };
   show = function(req, res) {
-    return Tab.findById(req.params.id).then(function(entry) {
+    return Song.findById(req.params.id).then(function(entry) {
       res.status(200);
       return res.send(entry);
     });
   };
   put = function(req, res) {
-    return Tab.findById(req.params.id).then(function(entry) {
+    return Song.findById(req.params.id).then(function(entry) {
       entry = _.extend(entry, req.body);
       return entry.save().then(function() {
         res.status(200);
@@ -40,15 +40,15 @@ module.exports = (function() {
     });
   };
   post = function(req, res) {
-    return Tab.create(req.body).then(function(entry) {
-      return Tab.findById(entry.id).then(function(entry) {
+    return Song.create(req.body).then(function(entry) {
+      return Song.findById(entry.id).then(function(entry) {
         res.status(200);
         return res.send(entry);
       });
     });
   };
   destroy = function(req, res) {
-    return Tab.findById(req.params.id).then(function(entry) {
+    return Song.findById(req.params.id).then(function(entry) {
       if (entry == null) {
         res.status(400);
         return res.send('entry not found');

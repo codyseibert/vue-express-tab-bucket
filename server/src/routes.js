@@ -1,19 +1,41 @@
-const TabsController = require('./controllers/TabsController');
+const SongsController = require('./controllers/SongsController');
 const AuthenticationCtrl = require('./controllers/AuthenticationController');
 const UsersCtrl = require('./controllers/UsersController');
-const VerifyBasicAuth = require('./middleware/VerifyBasicAuth')
+const isAuthenticated = require('./middleware/isAuthenticated')
 
 module.exports = function(app) {
-  app.get('/tabs', TabsController.index);
-  app.get('/tabs/:id', TabsController.show);
-  app.post('/tabs', TabsController.post);
-  app.put('/tabs/:id', TabsController.put);
-  app.delete('/tabs/:id', TabsController.destroy);
+  // Part 2
+  // app.get('/songs', SongsController.index);
+  // app.get('/songs/:id', SongsController.show);
+  // app.post('/songs',
+  //   isAuthenticated,
+  //   SongsController.post);
+  // app.put('/songs/:id',
+  //   isAuthenticated,
+  //   SongsController.put);
+  //
+  // // Part 3
+  // app.post('/songs/:id/recent',
+  //   isAuthenticated,
+  //   SongsController.markAsRecent);
+  // app.get('/songs/recent',
+  //   isAuthenticated,
+  //   SongsController.getRecent);
+  //
+  // // Part 4
+  // app.post('/songs/:id/bookmark',
+  //   isAuthenticated,
+  //   SongsController.setAsBookmarked);
+  // app.delete('/songs/:id/bookmark',
+  //   isAuthenticated,
+  //   SongsController.unsetAsBookmark);
+  //
+  // // Part 5
+  // app.put('/users/:userId',
+  //   isAuthenticated,
+  //   UsersCtrl.update);
 
-  app.put('/users/:userId',
-    VerifyBasicAuth,
-    UsersCtrl.update);
-
+  // Part 1
   app.post('/login', AuthenticationCtrl.login);
   app.post('/register', AuthenticationCtrl.register);
 };

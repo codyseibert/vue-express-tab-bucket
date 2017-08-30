@@ -1,49 +1,9 @@
 <template>
   <div id="app">
     <v-app>
-      <v-navigation-drawer
-        temporary
-        overflow
-        v-model="drawer" >
-        <div class="logo cyan">
-          CodePerfect
-          <br>
-          <v-icon>keyboard</v-icon>
-        </div>
-        <v-list class="pt-0" dense>
-          <!-- TODO: Refactor This -->
-          <v-list-tile @click="gotoRoute('snippits')">
-            <v-list-tile-action>
-              <v-icon>code</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Snippits</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+      <drawer />
 
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>info</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>About</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-navigation-drawer>
-
-      <v-toolbar fixed class="cyan" dark>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>CodePerfect</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-sm-and-down">
-          <router-link v-if="!$store.state.token" :to="{name: 'login'}">
-            <v-btn flat>
-              <v-icon>login</v-icon> Login
-            </v-btn>
-          </router-link>
-        </v-toolbar-items>
-      </v-toolbar>
+      <page-header />
 
       <main>
         <v-container fluid>
@@ -51,22 +11,26 @@
         </v-container>
       </main>
 
-      <v-footer class="cyan">
-        <div class="text-xs-center" style="width: 100%; color: white;">
-          © Cody Seibert 2017
-        </div>
-      </v-footer>
+      <page-footer />
     </v-app>
   </div>
 </template>
 
 <script>
+import Drawer from './components/Drawer.vue'
+import PageHeader from './components/Header.vue'
+import PageFooter from './components/Footer.vue'
+
 export default {
   name: 'app',
   data () {
     return {
-      drawer: false
     }
+  },
+  components: {
+    Drawer,
+    PageFooter,
+    PageHeader
   }
 }
 </script>
@@ -97,5 +61,9 @@ li {
 
 a {
   color: #42b983;
+}
+
+.toolbar--fixed+main {
+    padding-top: 0px;
 }
 </style>

@@ -5,15 +5,15 @@ const isAuthenticated = require('./middleware/isAuthenticated')
 
 module.exports = function(app) {
   // Part 2
-  // app.get('/songs', SongsController.index);
-  // app.get('/songs/:id', SongsController.show);
-  // app.post('/songs',
-  //   isAuthenticated,
-  //   SongsController.post);
+  app.get('/songs', SongsController.index);
+  app.get('/songs/:songId', SongsController.show);
+  app.post('/songs',
+    isAuthenticated,
+    SongsController.post);
   // app.put('/songs/:id',
   //   isAuthenticated,
   //   SongsController.put);
-  //
+
   // // Part 3
   // app.post('/songs/:id/recent',
   //   isAuthenticated,

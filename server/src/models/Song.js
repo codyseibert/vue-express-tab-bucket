@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     artist: DataTypes.INTEGER,
     genre: DataTypes.STRING,
-    video: DataTypes.STRING,
+    youtubeId: DataTypes.STRING,
     lryics: DataTypes.TEXT,
     tab: DataTypes.TEXT
   }, {

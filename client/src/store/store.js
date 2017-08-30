@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import base64 from 'base-64'
+
+import addSongStore from './addSongStore'
 
 Vue.use(Vuex)
 
@@ -8,38 +11,32 @@ const store = new Vuex.Store({
   strict: true,
   plugins: [createPersistedState()],
   state: {
-    selectedLanguage: {},
-    results: {},
-    token: null,
-    user: null
+    basicAuthHeader: null,
+    isDrawerOpen: false
   },
   mutations: {
-    setSelectedLanguage (state, selectedLanguage) {
-      state.selectedLanguage = selectedLanguage
+    setCredentials (state, credentials) {
+      console.log('credentials', credentials)
+      if (!credentials) {
+        state.basicAuthHeader = null
+      } else {
+        state.basicAuthHeader = base64.encode(`${credentials.email}:${credentials.password}`)
+      }
     },
-    setResults (state, results) {
-      state.results = results
-    },
-    setToken (state, token) {
-      state.token = token
-    },
-    setUser (state, user) {
-      state.user = user
+    setDrawerOpen (state, value) {
+      state.isDrawerOpen = value
     }
   },
   actions: {
-    setSelectedLanguage ({commit}, selectedLanguage) {
-      commit('setSelectedLanguage', selectedLanguage)
+    setCredentials ({commit}, credentials) {
+      commit('setCredentials', credentials)
     },
-    setResults ({commit}, results) {
-      commit('setResults', results)
-    },
-    setToken ({commit}, token) {
-      commit('setToken', token)
-    },
-    setUser ({commit}, user) {
-      commit('setUser', user)
+    setDrawerOpen ({commit}, value) {
+      commit('setDrawerOpen', value)
     }
+  },
+  modules: {
+    addSongForm: addSongStore
   }
 })
 

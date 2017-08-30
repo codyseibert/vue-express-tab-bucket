@@ -1,10 +1,9 @@
 import api from './api'
-const pickData = (r) => r.data
 export default {
   login (info) {
-    return api().post('login', info).then(pickData)
+    return api().post('login', info)
   },
   register (info) {
-    return api().post('register', info).then(pickData)
+    return api().post('register', info)
   }
 }

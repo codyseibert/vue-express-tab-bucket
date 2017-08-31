@@ -22,6 +22,13 @@
             <template slot="items" scope="props">
               <td class="text-xs-right">{{props.item.title}}</td>
               <td class="text-xs-right">{{props.item.artist}}</td>
+              <td>
+                <router-link :to="{ name: 'song', params: { songId: props.item.id }}">
+                  <v-btn dark primary class="cyan">
+                    View
+                  </v-btn>
+                </router-link>
+              </td>
             </template>
           </v-data-table>
         </div>
@@ -45,6 +52,13 @@
             <template slot="items" scope="props">
               <td class="text-xs-right">{{props.item.title}}</td>
               <td class="text-xs-right">{{props.item.artist}}</td>
+              <td>
+                <router-link :to="{ name: 'song', params: { songId: props.item.id }}">
+                  <v-btn dark primary class="cyan">
+                    View
+                  </v-btn>
+                </router-link>
+              </td>
             </template>
           </v-data-table>
         </div>
@@ -61,7 +75,7 @@
               <div class="search-panel">
                 <v-text-field
                   name="search"
-                  label="Search by Song, Artist, or Genre"
+                  label="Search by Song, Artist, Album, or Genre"
                   v-model="search"
                 ></v-text-field>
               </div>
@@ -77,7 +91,7 @@
 
                 <router-link :to="{name: 'addSong'}">
                   <v-btn
-                    class="add-song-btn deep-orange"
+                    class="add-song-btn orange"
                     dark
                     medium
                     absolute
@@ -111,54 +125,13 @@ import Song from '@/components/Song'
 import SongsService from '@/services/SongsService'
 import RecentsService from '@/services/RecentsService'
 import BookmarksService from '@/services/BookmarksService'
+import _ from 'lodash'
 
 export default {
   data () {
     return {
-      search: '',
-      recent: [
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        }
-      ],
-      bookmarks: null,
+      recent: [],
+      bookmarks: [],
       pagination: {
         sortBy: 'date',
         descending: true
@@ -172,10 +145,28 @@ export default {
     },
     oddSongs () {
       return this.songs.filter((s, i) => i % 2 === 1)
+    },
+    search: {
+      get () {
+        return this.$store.state.search
+      },
+      set (value) {
+        this.$store.dispatch('setSearch', value)
+      }
     }
   },
+  methods: {
+    async fetchSongs () {
+      this.songs = await SongsService.index(this.search)
+    }
+  },
+  watch: {
+    search: _.debounce(function () {
+      this.fetchSongs()
+    }, 700)
+  },
   async mounted () {
-    this.songs = await SongsService.index()
+    this.fetchSongs()
     this.recent = await RecentsService.index()
     this.bookmarks = await BookmarksService.index()
   },

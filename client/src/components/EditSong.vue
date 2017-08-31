@@ -2,7 +2,7 @@
   <div>
     <v-layout>
       <v-flex>
-        <h4 class="text-xs-left">Create Song</h4>
+        <h4 class="text-xs-left">Edit Song</h4>
       </v-flex>
     </v-layout>
 
@@ -19,7 +19,7 @@
               label="Title"
               required
               :rules="[rules.required]"
-              v-model="title"
+              v-model="song.title"
             ></v-text-field>
 
             <v-text-field
@@ -27,7 +27,7 @@
               label="Artist"
               required
               :rules="[rules.required]"
-              v-model="artist"
+              v-model="song.artist"
             ></v-text-field>
 
             <v-text-field
@@ -35,7 +35,7 @@
               label="Genre"
               required
               :rules="[rules.required]"
-              v-model="genre"
+              v-model="song.genre"
             ></v-text-field>
 
             <v-text-field
@@ -43,7 +43,7 @@
               label="Album"
               required
               :rules="[rules.required]"
-              v-model="album"
+              v-model="song.album"
             ></v-text-field>
 
             <v-text-field
@@ -51,7 +51,7 @@
               label="Album Image URL"
               required
               :rules="[rules.required]"
-              v-model="albumImage"
+              v-model="song.albumImage"
             ></v-text-field>
 
             <v-text-field
@@ -59,7 +59,7 @@
               label="YouTube Id"
               required
               :rules="[rules.required]"
-              v-model="youtubeId"
+              v-model="song.youtubeId"
             ></v-text-field>
           </div>
         </div>
@@ -78,7 +78,7 @@
               multi-line
               required
               :rules="[rules.required]"
-              v-model="lyrics">
+              v-model="song.lyrics">
             </v-text-field>
 
             <v-text-field
@@ -87,7 +87,7 @@
               multi-line
               required
               :rules="[rules.required]"
-              v-model="tab">
+              v-model="song.tab">
             </v-text-field>
           </div>
         </div>
@@ -100,8 +100,8 @@
           {{error}}
         </div>
 
-        <v-btn @click="addSong">
-          <v-icon>save</v-icon> Create
+        <v-btn @click="saveSong">
+          <v-icon>save</v-icon> Save
         </v-btn>
       </v-flex>
     </v-layout>
@@ -112,65 +112,45 @@
 <script>
 import SongsService from '../services/SongsService'
 
-const fieldHelper = (key) => (
-  {
-    get () {
-      return this.$store.state.addSongForm[key]
-    },
-    set (value) {
-      this.$store.dispatch('setFieldInAddSongForm', {
-        key: key,
-        value: value
-      })
-    }
-  }
-)
-
 export default {
   data () {
     return {
+      song: {},
       error: null,
       rules: {
         required: (value) => !!value || 'Required.'
       }
     }
   },
-  computed: {
-    title: fieldHelper('title'),
-    artist: fieldHelper('artist'),
-    genre: fieldHelper('genre'),
-    youtubeId: fieldHelper('youtubeId'),
-    lyrics: fieldHelper('lyrics'),
-    tab: fieldHelper('tab'),
-    album: fieldHelper('album'),
-    albumImage: fieldHelper('albumImage')
+  async mounted () {
+    const songId = this.$store.state.route.params.songId
+    this.song = await SongsService.show(songId)
   },
   methods: {
-    async addSong () {
-      const song = {
-        title: this.title,
-        artist: this.artist,
-        genre: this.genre,
-        youtubeId: this.youtubeId,
-        lyrics: this.lyrics,
-        tab: this.tab,
-        album: this.album,
-        albumImage: this.albumImage
-      }
-      this.error = null
-      const allFieldsAreFilledIn = Object.keys(song).every((key) => !!song[key])
-      if (!allFieldsAreFilledIn) {
+    async saveSong () {
+      const keys = [
+        'title',
+        'artist',
+        'genre',
+        'youtubeId',
+        'lyrics',
+        'tab',
+        'album',
+        'albumImage'
+      ]
+      const isValid = keys.every((key) => !!this.song[key])
+
+      if (!isValid) {
         this.error = 'Please fill in all the required fields'
         return
       }
 
       try {
-        const response = await SongsService.post(song)
-        this.$store.dispatch('clearAddSongForm')
+        await SongsService.put(this.song)
         this.$router.push({
           name: 'song',
           params: {
-            songId: response.id
+            songId: this.song.id
           }
         })
       } catch (err) {

@@ -1,23 +1,22 @@
 <template>
   <v-layout class="song">
-    <v-flex xs6>
+    <v-flex xs6 class="left-info">
       <div class="song-title">{{song.title}}</div>
       <div class="song-artist">{{song.artist}}</div>
       <div class="song-genre">{{song.genre}}</div>
 
       <router-link :to="{ name: 'song', params: { songId: this.song.id }}">
         <v-btn dark primary class="cyan">
-          <v-icon>library_music</v-icon> View
+          View
         </v-btn>
       </router-link>
     </v-flex>
 
     <v-flex xs6>
-      <youtube
-        :video-id="song.youtubeId"
-        :player-width="400"
-        :player-height="200">
-      </youtube>
+      <img class="album-image" :src="song.albumImage">
+      <p>
+        {{song.album}}
+      </p>
     </v-flex>
   </v-layout>
 </template>
@@ -60,5 +59,13 @@ export default {
 
 a {
   text-decoration: none;
+}
+
+.album-image {
+  width: 100%;
+}
+
+.left-info {
+  padding-top: 60px;
 }
 </style>

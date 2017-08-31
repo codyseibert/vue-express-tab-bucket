@@ -3,8 +3,16 @@ export default {
   post (song) {
     return api().post('songs', song)
   },
-  index () {
-    return api().get('songs')
+  put (song) {
+    return api().put(`songs/${song.id}`, song)
+  },
+  index (search) {
+    if (search === '') search = null
+    return api().get('songs', {
+      params: {
+        search: search
+      }
+    })
   },
   show (songId) {
     return api().get(`songs/${songId}`)

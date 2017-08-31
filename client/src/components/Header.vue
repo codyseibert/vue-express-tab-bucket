@@ -1,27 +1,49 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
     <v-toolbar-side-icon @click.stop="openDrawer"></v-toolbar-side-icon>
-    <v-toolbar-title>Guitar Tabs</v-toolbar-title>
+    <v-toolbar-title class="mr-4">Guitar Tabs</v-toolbar-title>
 
-    <router-link :to="{name: 'songs'}">
-      <v-btn flat dark>
-        <v-icon>music_note</v-icon> Songs
+    <v-toolbar-items>
+      <v-btn
+        @click="navigateTo({name: 'songs'})"
+        flat>
+        Browse
       </v-btn>
-    </router-link>
+    </v-toolbar-items>
 
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <router-link v-if="!$store.state.basicAuthHeader" :to="{name: 'login'}">
-        <v-btn flat>
-          <v-icon>login</v-icon> Login
-        </v-btn>
-      </router-link>
 
-      <router-link v-if="!$store.state.basicAuthHeader" :to="{name: 'register'}">
-        <v-btn flat>
-          <v-icon>assignment</v-icon> Sign Up
+    <v-toolbar-items>
+      <v-btn
+        @click="navigateTo({name: 'login'})"
+        v-if="!$store.state.basicAuthHeader" flat>
+        Login
+      </v-btn>
+
+      <v-btn
+        @click="navigateTo({name: 'register'})"
+        v-if="!$store.state.basicAuthHeader" flat>
+        Sign Up
+      </v-btn>
+
+      <v-menu v-if="$store.state.basicAuthHeader">
+        <v-btn slot="activator" flat dark>
+          <v-icon>settings</v-icon>
         </v-btn>
-      </router-link>
+
+        <v-list dense>
+          <router-link :to="{name: 'logout'}">
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>exit_to_app</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Logout</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </router-link>
+        </v-list>
+      </v-menu>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -33,6 +55,9 @@ export default {
     }
   },
   methods: {
+    navigateTo (route) {
+      this.$router.push(route)
+    },
     openDrawer () {
       this.$store.dispatch('setDrawerOpen', true)
     }
@@ -48,5 +73,9 @@ a {
 
 .icon {
   color: white;
+}
+
+.menu__content .list__tile .icon {
+  color: black;
 }
 </style>

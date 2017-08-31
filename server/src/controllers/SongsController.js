@@ -15,7 +15,39 @@ module.exports = {
   },
   async index (req, res) {
     try {
-      const songs = await Song.findAll({where: req.query})
+      let songs = []
+      if (!req.query.search) {
+        songs = await Song.findAll({
+          limit: 10
+        })
+      } else {
+        songs = await Song.findAll({
+          where: {
+            $or: [
+              {
+                title: {
+                  $like: `%${req.query.search}%`
+                }
+              },
+              {
+                artist: {
+                  $like: `%${req.query.search}%`
+                }
+              },
+              {
+                genre: {
+                  $like: `%${req.query.search}%`
+                }
+              },
+              {
+                album: {
+                  $like: `%${req.query.search}%`
+                }
+              }
+            ]
+          }
+        })
+      }
       res.status(200).send(songs)
     } catch (err) {
       ErrorHandler(err, res)
@@ -31,8 +63,12 @@ module.exports = {
   },
   async put (req, res) {
     try {
-      const song = await Song.findById(req.params.songId)
-      res.status(200).send(song)
+      const song = await Song.update(req.body, {
+        where: {
+          id: req.params.songId
+        }
+      })
+      res.status(200).send(req.body)
     } catch (err) {
       ErrorHandler(err, res)
     }

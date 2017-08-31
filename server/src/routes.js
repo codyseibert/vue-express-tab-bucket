@@ -38,11 +38,6 @@ module.exports = function(app) {
     isAuthenticated,
     BookmarksController.delete);
 
-  // // Part 5
-  // app.put('/users/:userId',
-  //   isAuthenticated,
-  //   UsersCtrl.update);
-
   // Part 1
   app.post('/login', AuthenticationCtrl.login);
   app.post('/register', AuthenticationCtrl.register);

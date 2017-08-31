@@ -13,13 +13,17 @@ const store = new Vuex.Store({
   state: {
     user: {},
     basicAuthHeader: null,
-    isDrawerOpen: false
+    isDrawerOpen: false,
+    isUserLoggedIn: false,
+    search: ''
   },
   mutations: {
     setCredentials (state, credentials) {
       if (!credentials) {
         state.basicAuthHeader = null
+        state.isUserLoggedIn = false
       } else {
+        state.isUserLoggedIn = true
         state.basicAuthHeader = base64.encode(`${credentials.email}:${credentials.password}`)
       }
     },
@@ -28,6 +32,9 @@ const store = new Vuex.Store({
     },
     setUser (state, user) {
       state.user = user
+    },
+    setSearch (state, search) {
+      state.search = search
     }
   },
   actions: {
@@ -39,6 +46,9 @@ const store = new Vuex.Store({
     },
     setUser ({commit}, user) {
       commit('setUser', user)
+    },
+    setSearch ({commit}, search) {
+      commit('setSearch', search)
     }
   },
   modules: {

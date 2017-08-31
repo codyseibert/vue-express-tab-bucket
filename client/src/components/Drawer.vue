@@ -9,14 +9,13 @@
       <v-icon>queue_music</v-icon>
     </div>
     <v-list dense>
-      <!-- TODO: Refactor This -->
       <router-link :to="{name: 'songs'}">
         <v-list-tile>
           <v-list-tile-action>
             <v-icon>music_note</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Songs</v-list-tile-title>
+            <v-list-tile-title>Browse</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </router-link>
@@ -28,17 +27,6 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>About</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </router-link>
-
-      <router-link v-if="$store.state.basicAuthHeader" :to="{name: 'logout'}">
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Logout</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </router-link>

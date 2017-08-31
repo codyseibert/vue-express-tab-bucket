@@ -5,7 +5,9 @@ export default {
     genre: null,
     youtubeId: null,
     lyrics: null,
-    tab: null
+    tab: null,
+    album: null,
+    albumImage: null
   },
   mutations: {
     setFieldInAddSongForm (state, message) {

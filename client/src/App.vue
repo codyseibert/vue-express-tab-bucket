@@ -60,10 +60,26 @@ li {
 }
 
 a {
-  color: #42b983;
+  text-decoration: none;
 }
 
 .toolbar--fixed+main {
     padding-top: 0px;
+}
+
+.p1 {
+  padding: 4px;
+}
+
+.p2 {
+  padding: 8px;
+}
+
+.p3 {
+  padding: 16px;
+}
+
+.p4 {
+  padding: 32px;
 }
 </style>

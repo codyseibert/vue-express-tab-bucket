@@ -4,6 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     artist: DataTypes.INTEGER,
     genre: DataTypes.STRING,
+    album: DataTypes.STRING,
+    albumImage: DataTypes.STRING,
     youtubeId: DataTypes.STRING,
     lyrics: DataTypes.TEXT,
     tab: DataTypes.TEXT
@@ -11,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Song.belongsTo(models.User)
+        Song.hasMany(models.Recent)
       }
     }
   });

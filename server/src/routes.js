@@ -1,7 +1,11 @@
 const SongsController = require('./controllers/SongsController');
+const UsersController = require('./controllers/UsersController');
+const RecentsController = require('./controllers/RecentsController');
+const BookmarksController = require('./controllers/BookmarksController');
 const AuthenticationCtrl = require('./controllers/AuthenticationController');
 const UsersCtrl = require('./controllers/UsersController');
 const isAuthenticated = require('./middleware/isAuthenticated')
+const isSongOwner = require('./middleware/isSongOwner')
 
 module.exports = function(app) {
   // Part 2
@@ -10,26 +14,30 @@ module.exports = function(app) {
   app.post('/songs',
     isAuthenticated,
     SongsController.post);
-  // app.put('/songs/:id',
-  //   isAuthenticated,
-  //   SongsController.put);
+  app.put('/songs/:songId',
+    isAuthenticated,
+    isSongOwner,
+    SongsController.put);
 
-  // // Part 3
-  // app.post('/songs/:id/recent',
-  //   isAuthenticated,
-  //   SongsController.markAsRecent);
-  // app.get('/songs/recent',
-  //   isAuthenticated,
-  //   SongsController.getRecent);
-  //
-  // // Part 4
-  // app.post('/songs/:id/bookmark',
-  //   isAuthenticated,
-  //   SongsController.setAsBookmarked);
-  // app.delete('/songs/:id/bookmark',
-  //   isAuthenticated,
-  //   SongsController.unsetAsBookmark);
-  //
+  // Part 3
+  app.post('/recents',
+    isAuthenticated,
+    RecentsController.post);
+  app.get('/recents',
+    isAuthenticated,
+    RecentsController.index);
+
+  // Part 4
+  app.get('/bookmarks',
+    isAuthenticated,
+    BookmarksController.index);
+  app.post('/bookmarks',
+    isAuthenticated,
+    BookmarksController.post);
+  app.delete('/bookmarks/:bookmarkId',
+    isAuthenticated,
+    BookmarksController.delete);
+
   // // Part 5
   // app.put('/users/:userId',
   //   isAuthenticated,

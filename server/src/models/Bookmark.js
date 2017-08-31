@@ -1,18 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
-  var Song;
-  Song = sequelize.define('Song', {
-    title: DataTypes.STRING,
-    artist: DataTypes.INTEGER,
-    genre: DataTypes.STRING,
-    video: DataTypes.STRING,
-    lryics: DataTypes.TEXT,
-    tab: DataTypes.TEXT
-  }, {
+  var Bookmark;
+  Bookmark = sequelize.define('Bookmark', {}, {
     classMethods: {
       associate: function(models) {
-        Song.belongsTo(models.User)
+        Bookmark.belongsTo(models.User)
+        Bookmark.belongsTo(models.Song)
       }
     }
   });
-  return Song;
+  return Bookmark;
 };

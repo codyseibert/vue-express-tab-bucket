@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs4>
         <div class="white elevation-2">
-          <v-toolbar flat dense class="blue-grey" dark>
+          <v-toolbar flat dense class="cyan" dark>
             <v-toolbar-title>Recently Viewed</v-toolbar-title>
           </v-toolbar>
 
@@ -26,9 +26,9 @@
           </v-data-table>
         </div>
 
-        <div class="white elevation-2 mt-4">
-          <v-toolbar flat dense class="blue-grey" dark>
-            <v-toolbar-title>Bookmarked</v-toolbar-title>
+        <div class="white elevation-2 mt-2">
+          <v-toolbar flat dense class="cyan" dark>
+            <v-toolbar-title>Bookmarked Songs</v-toolbar-title>
           </v-toolbar>
 
           <v-data-table
@@ -40,7 +40,7 @@
               value: 'artist'
             }]"
             :pagination.sync="pagination"
-            :items="bookmarked"
+            :items="bookmarks"
           >
             <template slot="items" scope="props">
               <td class="text-xs-right">{{props.item.title}}</td>
@@ -49,7 +49,6 @@
           </v-data-table>
         </div>
       </v-flex>
-
 
       <v-flex xs8>
         <v-layout>
@@ -70,7 +69,7 @@
           </v-flex>
         </v-layout>
 
-        <v-layout class="mt-4">
+        <v-layout class="mt-2">
           <v-flex>
             <div class="white elevation-2">
               <v-toolbar flat dense class="cyan" dark>
@@ -110,6 +109,8 @@
 <script>
 import Song from '@/components/Song'
 import SongsService from '@/services/SongsService'
+import RecentsService from '@/services/RecentsService'
+import BookmarksService from '@/services/BookmarksService'
 
 export default {
   data () {
@@ -157,92 +158,12 @@ export default {
           tab: ''
         }
       ],
-      bookmarked: [
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        },
-        {
-          title: 'Watch The Wind Blow By',
-          artist: 'Tim McGraw',
-          genre: 'Country',
-          youtubeId: 'HmVZBKPX3u0',
-          lyrics: '',
-          tab: ''
-        }
-      ],
+      bookmarks: null,
       pagination: {
         sortBy: 'date',
         descending: true
       },
-      songs: [{
-        title: 'Watch The Wind Blow By',
-        artist: 'Tim McGraw',
-        genre: 'Country',
-        youtubeId: 'HmVZBKPX3u0',
-        lyrics: '',
-        tab: ''
-      },
-      {
-        title: 'Watch The Wind Blow By',
-        artist: 'Tim McGraw',
-        genre: 'Country',
-        youtubeId: 'HmVZBKPX3u0',
-        lyrics: '',
-        tab: ''
-      },
-      {
-        title: 'Watch The Wind Blow By',
-        artist: 'Tim McGraw',
-        genre: 'Country',
-        youtubeId: 'HmVZBKPX3u0',
-        lyrics: '',
-        tab: ''
-      },
-      {
-        title: 'Watch The Wind Blow By',
-        artist: 'Tim McGraw',
-        genre: 'Country',
-        youtubeId: 'HmVZBKPX3u0',
-        lyrics: '',
-        tab: ''
-      }]
+      songs: null
     }
   },
   computed: {
@@ -255,6 +176,8 @@ export default {
   },
   async mounted () {
     this.songs = await SongsService.index()
+    this.recent = await RecentsService.index()
+    this.bookmarks = await BookmarksService.index()
   },
   components: {
     Song

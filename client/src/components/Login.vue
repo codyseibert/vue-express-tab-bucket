@@ -39,11 +39,13 @@ export default {
   methods: {
     async login () {
       try {
-        const info = await AuthenticationService.login({
+        const credentials = {
           email: this.email,
           password: this.password
-        })
-        this.$store.dispatch('setCredentials', info)
+        }
+        const user = await AuthenticationService.login(credentials)
+        this.$store.dispatch('setCredentials', credentials)
+        this.$store.dispatch('setUser', user)
         this.$router.push({
           name: 'songs'
         })

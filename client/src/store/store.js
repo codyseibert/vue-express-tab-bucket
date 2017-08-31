@@ -11,12 +11,12 @@ const store = new Vuex.Store({
   strict: true,
   plugins: [createPersistedState()],
   state: {
+    user: {},
     basicAuthHeader: null,
     isDrawerOpen: false
   },
   mutations: {
     setCredentials (state, credentials) {
-      console.log('credentials', credentials)
       if (!credentials) {
         state.basicAuthHeader = null
       } else {
@@ -25,6 +25,9 @@ const store = new Vuex.Store({
     },
     setDrawerOpen (state, value) {
       state.isDrawerOpen = value
+    },
+    setUser (state, user) {
+      state.user = user
     }
   },
   actions: {
@@ -33,6 +36,9 @@ const store = new Vuex.Store({
     },
     setDrawerOpen ({commit}, value) {
       commit('setDrawerOpen', value)
+    },
+    setUser ({commit}, user) {
+      commit('setUser', user)
     }
   },
   modules: {

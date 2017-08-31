@@ -6,11 +6,33 @@
           <v-toolbar-title>Song Info</v-toolbar-title>
         </v-toolbar>
 
-        <div class="text-xs-left p-4">
-          <div class="song-title">{{song.title}}</div>
-          <div class="song-artist">{{song.artist}}</div>
-          <div class="song-genre">{{song.genre}}</div>
-        </div>
+        <v-layout>
+          <v-flex xs8>
+            <div class="text-xs-left p-4">
+              <div class="song-title">{{song.title}}</div>
+              <div class="song-artist">{{song.artist}}</div>
+              <div class="song-genre">{{song.genre}}</div>
+            </div>
+          </v-flex>
+
+          <v-flex xs4>
+            <router-link
+              v-if="song.id === $store.state.user.id"
+              :to="{ name: 'editSong', params: { songId: this.song.id }}">
+              <v-btn dark primary class="cyan">
+                <v-icon>mode_edit</v-icon> Edit Song
+              </v-btn>
+            </router-link>
+
+            <v-btn v-if="bookmark" @click="unsetAsBookmark" dark primary class="cyan">
+              <v-icon>bookmark</v-icon> Unbookmark
+            </v-btn>
+
+            <v-btn v-if="!bookmark" @click="setAsBookmark" dark primary class="cyan">
+              <v-icon>bookmark_border</v-icon> Bookmark
+            </v-btn>
+          </v-flex>
+        </v-layout>
       </div>
 
       <div class="white elevation-2 mt-2">
@@ -58,15 +80,36 @@
 
 <script>
 import SongsService from '@/services/SongsService'
+import RecentsService from '@/services/RecentsService'
+import BookmarksService from '@/services/BookmarksService'
 
 export default {
   data () {
     return {
-      song: {}
+      song: {},
+      bookmark: null
+    }
+  },
+  methods: {
+    async setAsBookmark () {
+      this.bookmark = await BookmarksService.post({
+        songId: this.song.id
+      })
+    },
+    async unsetAsBookmark () {
+      await BookmarksService.delete(this.bookmark.bookmarkId)
+      this.bookmark = null
     }
   },
   async mounted () {
-    this.song = await SongsService.show(this.$store.state.route.params.songId)
+    const songId = this.$store.state.route.params.songId
+    this.song = await SongsService.show(songId)
+    this.bookmark = (await BookmarksService.index({
+      songId: songId
+    }))[0]
+    RecentsService.post({
+      songId: songId
+    })
   }
 }
 </script>

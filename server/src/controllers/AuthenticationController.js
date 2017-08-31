@@ -15,12 +15,7 @@ module.exports = {
       const isMatch = await user.comparePassword(password);
       if (!isMatch) throw new InvalidLoginError()
 
-      res
-        .status(200)
-        .send({
-          message: 'successfully logged in',
-          user: _.omit(user.toJSON(), 'password')
-        });
+      res.send(_.omit(user.toJSON(), 'password'))
     } catch (err) {
       ErrorHandler(err, res)
     }
@@ -32,11 +27,8 @@ module.exports = {
       const user = await User.findOne({where: {email: email}});
       if (user) throw new ResourceAlreadyExistsError()
 
-      await User.create(req.body);
-      res
-        .send({
-          message: 'successfully register this user, please login'
-        });
+      const createdUser = await User.create(req.body);
+      res.send(_.omit(createdUser.toJSON(), 'password'))
     } catch (err) {
       ErrorHandler(err, res)
     }

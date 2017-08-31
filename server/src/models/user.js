@@ -30,6 +30,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         User.hasMany(models.Song)
+        User.hasMany(models.Recent)
+        User.hasMany(models.Bookmark)
       }
     },
     hooks: {

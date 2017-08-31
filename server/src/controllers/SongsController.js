@@ -28,5 +28,13 @@ module.exports = {
     } catch (err) {
       ErrorHandler(err, res)
     }
+  },
+  async put (req, res) {
+    try {
+      const song = await Song.findById(req.params.songId)
+      res.status(200).send(song)
+    } catch (err) {
+      ErrorHandler(err, res)
+    }
   }
 }

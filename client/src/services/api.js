@@ -33,5 +33,17 @@ export default () => {
         })
     }
   })(connector.get)
+  connector.delete = (function (fun) {
+    return function () {
+      return fun.apply(this, arguments)
+        .then((r) => r.data)
+        .catch((error) => {
+          return Promise.reject({
+            status: error.response.status,
+            data: error.response.data
+          })
+        })
+    }
+  })(connector.delete)
   return connector
 }

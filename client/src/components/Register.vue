@@ -48,13 +48,13 @@ export default {
           email: this.email,
           password: this.password
         }
-        await AuthenticationService.register(credentials)
+        const user = await AuthenticationService.register(credentials)
         this.$store.dispatch('setCredentials', credentials)
+        this.$store.dispatch('setUser', user)
         this.$router.push({
           name: 'songs'
         })
       } catch (response) {
-        console.log('response', response)
         this.error = response.data.error
       }
     }

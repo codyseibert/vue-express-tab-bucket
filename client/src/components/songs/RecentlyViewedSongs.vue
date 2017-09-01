@@ -1,7 +1,7 @@
 <template>
   <div class="white elevation-2 mt-2">
     <v-toolbar flat dense class="cyan" dark>
-      <v-toolbar-title>Bookmarked Songs</v-toolbar-title>
+      <v-toolbar-title>Recently Viewed</v-toolbar-title>
     </v-toolbar>
 
     <v-data-table
@@ -13,7 +13,7 @@
         value: 'artist'
       }]"
       :pagination.sync="pagination"
-      :items="bookmarks"
+      :items="recent"
     >
       <template slot="items" scope="props">
         <td class="text-xs-right">
@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import BookmarksService from '@/services/BookmarksService'
-import SongBrowserLink from '@/components/SongBrowserLink'
+import SongBrowserLink from '@/components/songs/SongBrowserLink'
+import RecentsService from '@/services/RecentsService'
 
 export default {
   data () {
     return {
-      bookmarks: [],
+      recent: [],
       pagination: {
         sortBy: 'date',
         descending: true
@@ -53,7 +53,7 @@ export default {
   },
   async mounted () {
     if (this.$store.state.isUserLoggedIn) {
-      this.bookmarks = await BookmarksService.index()
+      this.recent = await RecentsService.index()
     }
   }
 }

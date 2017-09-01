@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import Drawer from './components/Drawer.vue'
-import PageHeader from './components/Header.vue'
-import PageFooter from './components/Footer.vue'
+import Drawer from '@/components/Drawer.vue'
+import PageHeader from '@/components/Header.vue'
+import PageFooter from '@/components/Footer.vue'
 
 export default {
   name: 'app',

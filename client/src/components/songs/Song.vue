@@ -28,7 +28,7 @@
 
 
 <script>
-import SongBrowserLink from '@/components/SongBrowserLink'
+import SongBrowserLink from '@/components/songs/SongBrowserLink'
 
 export default {
   data () {

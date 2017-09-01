@@ -1,3 +1,5 @@
+// part 1
+
 const SongsController = require('./controllers/SongsController');
 const UsersController = require('./controllers/UsersController');
 const RecentsController = require('./controllers/RecentsController');
@@ -38,7 +40,9 @@ module.exports = function(app) {
     isAuthenticated,
     BookmarksController.delete);
 
-  // Part 1
+  // Part 1.A
   app.post('/login', AuthenticationCtrl.login);
+
+  // Part 1.B
   app.post('/register', AuthenticationCtrl.register);
 };

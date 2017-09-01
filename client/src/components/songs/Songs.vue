@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import Song from '@/components/Song'
-import SongBrowserLink from '@/components/SongBrowserLink'
-import BookmarkedSongs from '@/components/BookmarkedSongs'
-import RecentlyViewedSongs from '@/components/RecentlyViewedSongs'
-import SongsPanel from '@/components/SongsPanel'
-import SongsSearchPanel from '@/components/SongsSearchPanel'
+import Song from '@/components/songs/Song'
+import SongBrowserLink from '@/components/songs/SongBrowserLink'
+import BookmarkedSongs from '@/components/songs/BookmarkedSongs'
+import RecentlyViewedSongs from '@/components/songs/RecentlyViewedSongs'
+import SongsPanel from '@/components/songs/SongsPanel'
+import SongsSearchPanel from '@/components/songs/SongsSearchPanel'
 
 export default {
   components: {

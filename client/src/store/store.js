@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import base64 from 'base-64'
 
-import addSongStore from './addSongStore'
+import addSongStore from '@/store/addSongStore'
 
 Vue.use(Vuex)
 

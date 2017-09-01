@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs12>
-      <h4 class="text-xs-center">Login</h4>
+      <h4 class="text-xs-center">Sign Up</h4>
     </v-flex>
 
     <v-flex xs6 offset-xs3>
@@ -18,20 +18,24 @@
         v-model="password"
       ></v-text-field>
 
+      <div v-if="error">
+        {{error}}
+      </div>
+
       <v-btn @click="login">
-        <v-icon>thumb_up</v-icon> Login
+        <v-icon>assignment</v-icon> Sign Up
       </v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import AuthenticationService from '../services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService'
 
 export default {
   data () {
     return {
-      invalid: false,
+      error: null,
       email: '',
       password: ''
     }
@@ -39,18 +43,19 @@ export default {
   methods: {
     async login () {
       try {
+        this.error = null
         const credentials = {
           email: this.email,
           password: this.password
         }
-        const user = await AuthenticationService.login(credentials)
+        const user = await AuthenticationService.register(credentials)
         this.$store.dispatch('setCredentials', credentials)
         this.$store.dispatch('setUser', user)
         this.$router.push({
           name: 'songs'
         })
-      } catch (err) {
-        this.invalid = true
+      } catch (response) {
+        this.error = response.data.error
       }
     }
   }

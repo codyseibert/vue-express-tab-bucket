@@ -99,7 +99,7 @@
 import SongsService from '@/services/SongsService'
 import RecentsService from '@/services/RecentsService'
 import BookmarksService from '@/services/BookmarksService'
-import SongBrowserLink from '@/components/SongBrowserLink'
+import SongBrowserLink from '@/components/songs/SongBrowserLink'
 
 export default {
   data () {

@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Song from '@/components/Song'
+import Song from '@/components/songs/Song'
 import SongsService from '@/services/SongsService'
 
 export default {

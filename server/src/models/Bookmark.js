@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Bookmark;
+  var Bookmark
   Bookmark = sequelize.define('Bookmark', {}, {
     classMethods: {
       associate: function(models) {
@@ -7,6 +7,6 @@ module.exports = function(sequelize, DataTypes) {
         Bookmark.belongsTo(models.Song)
       }
     }
-  });
-  return Bookmark;
-};
+  })
+  return Bookmark
+}

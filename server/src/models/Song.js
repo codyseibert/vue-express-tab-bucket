@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Song;
+  var Song
   Song = sequelize.define('Song', {
     title: DataTypes.STRING,
     artist: DataTypes.INTEGER,
@@ -16,6 +16,6 @@ module.exports = function(sequelize, DataTypes) {
         Song.hasMany(models.Recent)
       }
     }
-  });
-  return Song;
-};
+  })
+  return Song
+}

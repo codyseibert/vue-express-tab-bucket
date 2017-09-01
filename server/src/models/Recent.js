@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Recent;
+  var Recent
   Recent = sequelize.define('Recent', {}, {
     classMethods: {
       associate: function(models) {
@@ -7,6 +7,6 @@ module.exports = function(sequelize, DataTypes) {
         Recent.belongsTo(models.Song)
       }
     }
-  });
-  return Recent;
-};
+  })
+  return Recent
+}

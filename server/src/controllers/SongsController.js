@@ -1,7 +1,7 @@
-const Promise = require('bluebird');
-const {Song} = require('../models');
-const ErrorHandler = require('../errors/ErrorHandler');
-const _ = require('underscore');
+const Promise = require('bluebird')
+const {Song} = require('../models')
+const ErrorHandler = require('../errors/ErrorHandler')
+const _ = require('underscore')
 
 module.exports = {
   async post (req, res) {

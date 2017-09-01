@@ -1,48 +1,46 @@
 // part 1
 
-const SongsController = require('./controllers/SongsController');
-const UsersController = require('./controllers/UsersController');
-const RecentsController = require('./controllers/RecentsController');
-const BookmarksController = require('./controllers/BookmarksController');
-const AuthenticationCtrl = require('./controllers/AuthenticationController');
-const UsersCtrl = require('./controllers/UsersController');
+const SongsController = require('./controllers/SongsController')
+const RecentsController = require('./controllers/RecentsController')
+const BookmarksController = require('./controllers/BookmarksController')
+const AuthenticationCtrl = require('./controllers/AuthenticationController')
 const isAuthenticated = require('./middleware/isAuthenticated')
 const isSongOwner = require('./middleware/isSongOwner')
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Part 2
-  app.get('/songs', SongsController.index);
-  app.get('/songs/:songId', SongsController.show);
+  app.get('/songs', SongsController.index)
+  app.get('/songs/:songId', SongsController.show)
   app.post('/songs',
     isAuthenticated,
-    SongsController.post);
+    SongsController.post)
   app.put('/songs/:songId',
     isAuthenticated,
     isSongOwner,
-    SongsController.put);
+    SongsController.put)
 
   // Part 3
   app.post('/recents',
     isAuthenticated,
-    RecentsController.post);
+    RecentsController.post)
   app.get('/recents',
     isAuthenticated,
-    RecentsController.index);
+    RecentsController.index)
 
   // Part 4
   app.get('/bookmarks',
     isAuthenticated,
-    BookmarksController.index);
+    BookmarksController.index)
   app.post('/bookmarks',
     isAuthenticated,
-    BookmarksController.post);
+    BookmarksController.post)
   app.delete('/bookmarks/:bookmarkId',
     isAuthenticated,
-    BookmarksController.delete);
+    BookmarksController.delete)
 
   // Part 1.A
-  app.post('/login', AuthenticationCtrl.login);
+  app.post('/login', AuthenticationCtrl.login)
 
   // Part 1.B
-  app.post('/register', AuthenticationCtrl.register);
-};
+  app.post('/register', AuthenticationCtrl.register)
+}

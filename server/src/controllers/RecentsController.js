@@ -1,9 +1,9 @@
-const ResourceAlreadyExistsError = require('../errors/ResourceAlreadyExistsError');
-const ErrorHandler = require('../errors/ErrorHandler');
-const InvalidLoginError = require('../errors/InvalidLoginError');
+const ResourceAlreadyExistsError = require('../errors/ResourceAlreadyExistsError')
+const ErrorHandler = require('../errors/ErrorHandler')
+const InvalidLoginError = require('../errors/InvalidLoginError')
 
-const {User, Recent, Song} = require('../models');
-const _ = require('lodash');
+const {User, Recent, Song} = require('../models')
+const _ = require('lodash')
 
 module.exports = {
 
@@ -22,7 +22,7 @@ module.exports = {
       , (song) => song.id)
       res
         .status(200)
-        .send(recentSongs);
+        .send(recentSongs)
     } catch (err) {
       ErrorHandler(err, res)
     }

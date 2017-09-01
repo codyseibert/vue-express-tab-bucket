@@ -4,7 +4,8 @@
   "description": "testing",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/nodemon/bin/nodemon.js src/app.js"
+    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
+    "lint": "./node_modules/.bin/eslint **/*.js"
   },
   "author": "",
   "license": "MIT",
@@ -18,6 +19,7 @@
     "lodash": "^4.17.4",
     "log4js": "^0.6.30",
     "mongoose": "^4.3.7",
+    "morgan": "^1.8.2",
     "mysql": "^2.10.2",
     "nodemon": "^1.11.0",
     "passport": "^0.4.0",
@@ -27,5 +29,12 @@
     "sqlite3": "^3.1.8",
     "underscore": "^1.8.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^4.6.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
 }

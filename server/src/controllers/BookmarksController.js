@@ -1,9 +1,9 @@
-const ResourceAlreadyExistsError = require('../errors/ResourceAlreadyExistsError');
-const ErrorHandler = require('../errors/ErrorHandler');
-const InvalidLoginError = require('../errors/InvalidLoginError');
+const ResourceAlreadyExistsError = require('../errors/ResourceAlreadyExistsError')
+const ErrorHandler = require('../errors/ErrorHandler')
+const InvalidLoginError = require('../errors/InvalidLoginError')
 
-const {User, Bookmark, Song} = require('../models');
-const _ = require('lodash');
+const {User, Bookmark, Song} = require('../models')
+const _ = require('lodash')
 
 module.exports = {
 
@@ -21,7 +21,7 @@ module.exports = {
         .map((bookmark) => _.extend({bookmarkId: bookmark.id}, bookmark.Song))
       res
         .status(200)
-        .send(bookmarks);
+        .send(bookmarks)
     } catch (err) {
       ErrorHandler(err, res)
     }

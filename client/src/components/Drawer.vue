@@ -4,7 +4,7 @@
     overflow
     v-model="isOpen" >
     <div class="logo cyan">
-      Guitar Tabs
+      TabTracker
       <br>
       <v-icon>queue_music</v-icon>
     </div>
@@ -20,7 +20,7 @@
         </v-list-tile>
       </router-link>
 
-      <router-link :to="{name: 'songs'}">
+      <router-link :to="{name: 'about'}">
         <v-list-tile>
           <v-list-tile-action>
             <v-icon>info</v-icon>

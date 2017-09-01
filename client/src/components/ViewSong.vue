@@ -10,10 +10,16 @@
           <v-flex xs8>
             <v-layout column>
               <v-flex>
-                <div class="text-xs-left p-4">
-                  <div class="song-title">{{song.title}}</div>
-                  <div class="song-artist">{{song.artist}}</div>
-                  <div class="song-genre">{{song.genre}}</div>
+                <div class="text-xs-right p-4">
+                  <div class="song-title">
+                    <song-browser-link :value="song.title" />
+                  </div>
+                  <div class="song-artist">
+                    <song-browser-link :value="song.artist" />
+                  </div>
+                  <div class="song-genre">
+                    <song-browser-link :value="song.genre" />
+                  </div>
                 </div>
               </v-flex>
 
@@ -40,7 +46,7 @@
           <v-flex xs4>
             <img class="album-image pt-2" :src="song.albumImage">
             <p>
-              {{song.album}}
+              <song-browser-link :value="song.album" />
             </p>
           </v-flex>
         </v-layout>
@@ -93,6 +99,7 @@
 import SongsService from '@/services/SongsService'
 import RecentsService from '@/services/RecentsService'
 import BookmarksService from '@/services/BookmarksService'
+import SongBrowserLink from '@/components/SongBrowserLink'
 
 export default {
   data () {
@@ -100,6 +107,9 @@ export default {
       song: {},
       bookmark: null
     }
+  },
+  components: {
+    SongBrowserLink
   },
   methods: {
     async setAsBookmark () {
@@ -129,10 +139,6 @@ export default {
 
 
 <style scoped>
-.song {
-  padding: 20px;
-}
-
 .song-title {
   font-size: 30px;
 }

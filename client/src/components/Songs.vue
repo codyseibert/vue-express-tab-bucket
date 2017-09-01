@@ -1,118 +1,24 @@
 <template>
   <div>
     <v-layout>
-      <v-flex xs4>
-        <div class="white elevation-2">
-          <v-toolbar flat dense class="cyan" dark>
-            <v-toolbar-title>Recently Viewed</v-toolbar-title>
-          </v-toolbar>
-
-          <v-data-table
-            :headers="[{
-              text: 'Title',
-              value: 'title'
-            },{
-              text: 'Artist',
-              value: 'artist'
-            }]"
-            hide-actions
-            :pagination.sync="pagination"
-            :items="recent"
-          >
-            <template slot="items" scope="props">
-              <td class="text-xs-right">{{props.item.title}}</td>
-              <td class="text-xs-right">{{props.item.artist}}</td>
-              <td>
-                <router-link :to="{ name: 'song', params: { songId: props.item.id }}">
-                  <v-btn dark primary class="cyan">
-                    View
-                  </v-btn>
-                </router-link>
-              </td>
-            </template>
-          </v-data-table>
-        </div>
-
-        <div class="white elevation-2 mt-2">
-          <v-toolbar flat dense class="cyan" dark>
-            <v-toolbar-title>Bookmarked Songs</v-toolbar-title>
-          </v-toolbar>
-
-          <v-data-table
-            :headers="[{
-              text: 'Title',
-              value: 'title'
-            },{
-              text: 'Artist',
-              value: 'artist'
-            }]"
-            :pagination.sync="pagination"
-            :items="bookmarks"
-          >
-            <template slot="items" scope="props">
-              <td class="text-xs-right">{{props.item.title}}</td>
-              <td class="text-xs-right">{{props.item.artist}}</td>
-              <td>
-                <router-link :to="{ name: 'song', params: { songId: props.item.id }}">
-                  <v-btn dark primary class="cyan">
-                    View
-                  </v-btn>
-                </router-link>
-              </td>
-            </template>
-          </v-data-table>
-        </div>
+      <v-flex xs4 v-if="$store.state.isUserLoggedIn">
+        <recently-viewed-songs />
+        <bookmarked-songs />
       </v-flex>
 
-      <v-flex xs8>
+      <v-flex xs8 class="pt-2" :class="{
+        xs8: $store.state.isUserLoggedIn,
+        xs12: !$store.state.isUserLoggedIn
+      }">
         <v-layout>
           <v-flex>
-            <div class="white elevation-2">
-              <v-toolbar flat dense class="cyan" dark>
-                <v-toolbar-title>Search for Songs</v-toolbar-title>
-              </v-toolbar>
-
-              <div class="search-panel">
-                <v-text-field
-                  name="search"
-                  label="Search by Song, Artist, Album, or Genre"
-                  v-model="search"
-                ></v-text-field>
-              </div>
-            </div>
+            <songs-search-panel />
           </v-flex>
         </v-layout>
 
         <v-layout class="mt-2">
           <v-flex>
-            <div class="white elevation-2">
-              <v-toolbar flat dense class="cyan" dark>
-                <v-toolbar-title>Songs</v-toolbar-title>
-
-                <router-link :to="{name: 'addSong'}">
-                  <v-btn
-                    class="add-song-btn orange"
-                    dark
-                    medium
-                    absolute
-                    middle
-                    right
-                    fab
-                  >
-                    <v-icon>add</v-icon>
-                  </v-btn>
-                </router-link>
-              </v-toolbar>
-
-              <v-layout class="songs">
-                <v-flex class="pr-2">
-                  <Song
-                    v-for="song in songs"
-                    :key="song.id"
-                    :song="song" />
-                </v-flex>
-              </v-layout>
-            </div>
+            <songs-panel />
           </v-flex>
         </v-layout>
       </v-flex>
@@ -122,56 +28,20 @@
 
 <script>
 import Song from '@/components/Song'
-import SongsService from '@/services/SongsService'
-import RecentsService from '@/services/RecentsService'
-import BookmarksService from '@/services/BookmarksService'
-import _ from 'lodash'
+import SongBrowserLink from '@/components/SongBrowserLink'
+import BookmarkedSongs from '@/components/BookmarkedSongs'
+import RecentlyViewedSongs from '@/components/RecentlyViewedSongs'
+import SongsPanel from '@/components/SongsPanel'
+import SongsSearchPanel from '@/components/SongsSearchPanel'
 
 export default {
-  data () {
-    return {
-      recent: [],
-      bookmarks: [],
-      pagination: {
-        sortBy: 'date',
-        descending: true
-      },
-      songs: null
-    }
-  },
-  computed: {
-    evenSongs () {
-      return this.songs.filter((s, i) => i % 2 === 0)
-    },
-    oddSongs () {
-      return this.songs.filter((s, i) => i % 2 === 1)
-    },
-    search: {
-      get () {
-        return this.$store.state.search
-      },
-      set (value) {
-        this.$store.dispatch('setSearch', value)
-      }
-    }
-  },
-  methods: {
-    async fetchSongs () {
-      this.songs = await SongsService.index(this.search)
-    }
-  },
-  watch: {
-    search: _.debounce(function () {
-      this.fetchSongs()
-    }, 700)
-  },
-  async mounted () {
-    this.fetchSongs()
-    this.recent = await RecentsService.index()
-    this.bookmarks = await BookmarksService.index()
-  },
   components: {
-    Song
+    Song,
+    SongBrowserLink,
+    BookmarkedSongs,
+    RecentlyViewedSongs,
+    SongsPanel,
+    SongsSearchPanel
   }
 }
 </script>
@@ -190,5 +60,9 @@ export default {
 
 .add-song-btn {
   top: -4px;
+}
+
+.bottom {
+  height: 40px;
 }
 </style>

@@ -1,28 +1,35 @@
 <template>
-  <v-layout class="song">
+  <v-layout class="song text-xs-right">
     <v-flex xs6 class="left-info">
-      <div class="song-title">{{song.title}}</div>
-      <div class="song-artist">{{song.artist}}</div>
-      <div class="song-genre">{{song.genre}}</div>
+      <div class="song-title">
+        <song-browser-link :value="song.title" />
+      </div>
+      <div class="song-artist">
+        <song-browser-link :value="song.artist" />
+      </div>
+      <div class="song-genre">
+        <song-browser-link :value="song.genre" />
+      </div>
 
       <router-link :to="{ name: 'song', params: { songId: this.song.id }}">
-        <v-btn dark primary class="cyan">
+        <v-btn dark primary class="cyan view-btn">
           View
         </v-btn>
       </router-link>
     </v-flex>
 
-    <v-flex xs6>
+    <v-flex xs6 class="text-xs-center">
       <img class="album-image" :src="song.albumImage">
-      <p>
-        {{song.album}}
-      </p>
+      <br>
+      <song-browser-link :value="song.album" />
     </v-flex>
   </v-layout>
 </template>
 
 
 <script>
+import SongBrowserLink from '@/components/SongBrowserLink'
+
 export default {
   data () {
     return {
@@ -30,6 +37,9 @@ export default {
   },
   props: {
     song: Object
+  },
+  components: {
+    SongBrowserLink
   }
 }
 </script>
@@ -37,8 +47,9 @@ export default {
 
 <style scoped>
 .song {
-  border-bottom: 1px solid #DDD;
   padding: 20px;
+  height: 330px;
+  overflow: hidden;
 }
 
 .song-title {
@@ -57,15 +68,17 @@ export default {
   margin-right: 10px;
 }
 
-a {
-  text-decoration: none;
-}
-
 .album-image {
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .left-info {
-  padding-top: 60px;
+  position: relative;
+}
+
+.view-btn {
+  margin: 0px;
+  margin-top: 10px;
 }
 </style>

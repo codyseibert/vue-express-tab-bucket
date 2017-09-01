@@ -7,8 +7,20 @@ import Logout from '@/components/Logout'
 import ViewSong from '@/components/ViewSong'
 import AddSong from '@/components/AddSong'
 import EditSong from '@/components/EditSong'
+import About from '@/components/About'
+import store from '../store/store'
 
 Vue.use(Router)
+
+const verifyUserIsLoggedIn = (to, from, next) => {
+  if (!store.state.isUserLoggedIn) {
+    next({
+      name: 'login'
+    })
+  } else {
+    next()
+  }
+}
 
 export default new Router({
   routes: [
@@ -35,17 +47,24 @@ export default new Router({
     {
       path: '/songs/add',
       name: 'addSong',
-      component: AddSong
+      component: AddSong,
+      beforeEnter: verifyUserIsLoggedIn
     },
     {
       path: '/songs/:songId/edit',
       name: 'editSong',
-      component: EditSong
+      component: EditSong,
+      beforeEnter: verifyUserIsLoggedIn
     },
     {
       path: '/songs/:songId',
       name: 'song',
       component: ViewSong
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     },
     {
       path: '*',

@@ -61,6 +61,7 @@ li {
 
 a {
   text-decoration: none;
+  color: #00bcd4;
 }
 
 .toolbar--fixed+main {

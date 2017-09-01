@@ -14,8 +14,7 @@ const store = new Vuex.Store({
     user: {},
     basicAuthHeader: null,
     isDrawerOpen: false,
-    isUserLoggedIn: false,
-    search: ''
+    isUserLoggedIn: false
   },
   mutations: {
     setCredentials (state, credentials) {
@@ -32,9 +31,6 @@ const store = new Vuex.Store({
     },
     setUser (state, user) {
       state.user = user
-    },
-    setSearch (state, search) {
-      state.search = search
     }
   },
   actions: {
@@ -46,9 +42,6 @@ const store = new Vuex.Store({
     },
     setUser ({commit}, user) {
       commit('setUser', user)
-    },
-    setSearch ({commit}, search) {
-      commit('setSearch', search)
     }
   },
   modules: {

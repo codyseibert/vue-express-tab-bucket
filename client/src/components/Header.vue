@@ -1,7 +1,7 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
     <v-toolbar-side-icon @click.stop="openDrawer"></v-toolbar-side-icon>
-    <v-toolbar-title class="mr-4">Guitar Tabs</v-toolbar-title>
+    <v-toolbar-title class="mr-4">TabTacker</v-toolbar-title>
 
     <v-toolbar-items>
       <v-btn

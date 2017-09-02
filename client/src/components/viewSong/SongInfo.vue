@@ -58,6 +58,11 @@ import BookmarksService from '@/services/BookmarksService'
 import SongBrowserLink from '@/components/songs/SongBrowserLink'
 
 export default {
+  data () {
+    return {
+      bookmark: false
+    }
+  },
   props: {
     song: Object
   },

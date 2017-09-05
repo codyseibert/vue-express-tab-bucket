@@ -26,6 +26,7 @@
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
     "passport-http-bearer-base64": "^1.0.3",
+    "passport-jwt": "^3.0.0",
     "randomstring": "^1.1.5",
     "sequelize": "^3.18.0",
     "sqlite3": "^3.1.8",

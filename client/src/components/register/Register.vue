@@ -54,9 +54,9 @@ export default {
           email: this.email,
           password: this.password
         }
-        const user = await AuthenticationService.register(credentials)
-        this.$store.dispatch('setToken', user.token)
-        this.$store.dispatch('setUser', user)
+        const response = await AuthenticationService.register(credentials)
+        this.$store.dispatch('setToken', response.token)
+        this.$store.dispatch('setUser', response.user)
         this.$router.push({
           name: 'songs'
         })

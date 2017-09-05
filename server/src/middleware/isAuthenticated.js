@@ -4,7 +4,7 @@ const InvalidLoginError = require('../errors/InvalidLoginError')
 const passport = require('passport')
 
 module.exports = function (req, res, next) {
-  passport.authenticate('bearer', function(err, user) {
+  passport.authenticate('jwt', function(err, user) {
     if (err) {
       ErrorHandler(err, res)
     } else {

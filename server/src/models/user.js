@@ -21,8 +21,7 @@ module.exports = (sequelize, DataTypes) =>
       type: DataTypes.STRING,
       unique: true
     },
-    password: DataTypes.STRING,
-    token: DataTypes.STRING
+    password: DataTypes.STRING
   }, {
     classMethods: {
       associate: (models) => {

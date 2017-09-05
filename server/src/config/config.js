@@ -8,5 +8,9 @@ module.exports = {
       host: process.env.HOST || 'localhost',
       storage: './tabtracker.sqlite'
     }
+  },
+  authentication: {
+    minPasswordLength: 8,
+    maxPasswordLength: 32
   }
 }

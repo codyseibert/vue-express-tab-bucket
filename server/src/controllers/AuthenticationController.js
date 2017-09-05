@@ -5,8 +5,9 @@ const InvalidLoginError = require('../errors/InvalidLoginError')
 
 const {User} = require('../models')
 const _ = require('lodash')
-module.exports = {
+const randomstring = require('randomstring')
 
+module.exports = {
   async login (req, res) {
     try {
       const {email, password} = req.body
@@ -16,6 +17,9 @@ module.exports = {
       const isMatch = await user.comparePassword(password)
       if (!isMatch) throw new InvalidLoginError()
 
+      user.token = randomstring.generate()
+      await user.save()
+
       res.send(_.omit(user.toJSON(), 'password'))
     } catch (err) {
       ErrorHandler(err, res)
@@ -24,14 +28,15 @@ module.exports = {
 
   async register (req, res) {
     try {
-      const {email} = req.body
-      const user = await User.findOne({where: {email: email}})
-      if (user) throw new ResourceAlreadyExistsError()
-
+      const token = randomstring.generate()
+      req.body.token = token
       const createdUser = await User.create(req.body)
       res.send(_.omit(createdUser.toJSON(), 'password'))
     } catch (err) {
-      ErrorHandler(err, res)
+      console.log(err)
+      res.status(400).send({
+        message: 'This email account is already in use'
+      })
     }
   }
 }

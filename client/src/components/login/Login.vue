@@ -44,7 +44,7 @@ export default {
           password: this.password
         }
         const user = await AuthenticationService.login(credentials)
-        this.$store.dispatch('setCredentials', credentials)
+        this.$store.dispatch('setToken', user.token)
         this.$store.dispatch('setUser', user)
         this.$router.push({
           name: 'songs'

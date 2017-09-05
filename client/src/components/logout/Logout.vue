@@ -5,7 +5,8 @@
 <script>
 export default {
   mounted () {
-    this.$store.dispatch('setCredentials', null)
+    this.$store.dispatch('setToken', null)
+    this.$store.dispatch('setUser', null)
     this.$router.push({
       name: 'songs'
     })

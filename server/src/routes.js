@@ -6,6 +6,7 @@ const BookmarksController = require('./controllers/BookmarksController')
 const AuthenticationCtrl = require('./controllers/AuthenticationController')
 const isAuthenticated = require('./middleware/isAuthenticated')
 const isSongOwner = require('./middleware/isSongOwner')
+const AuthenticationCtrlPolicy = require('./policies/AuthenticationControllerPolicy')
 
 module.exports = function (app) {
   // Part 2
@@ -42,5 +43,7 @@ module.exports = function (app) {
   app.post('/login', AuthenticationCtrl.login)
 
   // Part 1.B
-  app.post('/register', AuthenticationCtrl.register)
+  app.post('/register',
+    AuthenticationCtrlPolicy.register,
+    AuthenticationCtrl.register)
 }

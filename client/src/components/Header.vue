@@ -16,17 +16,17 @@
     <v-toolbar-items>
       <v-btn
         @click="navigateTo({name: 'login'})"
-        v-if="!$store.state.basicAuthHeader" flat>
+        v-if="!$store.state.isUserLoggedIn" flat>
         Login
       </v-btn>
 
       <v-btn
         @click="navigateTo({name: 'register'})"
-        v-if="!$store.state.basicAuthHeader" flat>
+        v-if="!$store.state.isUserLoggedIn" flat>
         Sign Up
       </v-btn>
 
-      <v-menu v-if="$store.state.basicAuthHeader">
+      <v-menu v-if="$store.state.isUserLoggedIn">
         <v-btn slot="activator" flat dark>
           <v-icon>settings</v-icon>
         </v-btn>

@@ -15,23 +15,20 @@ const hashPassword = (user, options) => {
     })
 }
 
-module.exports = function(sequelize, DataTypes) {
-  var User
-  User = sequelize.define('User', {
-    email: DataTypes.STRING,
+module.exports = (sequelize, DataTypes) =>
+  sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     password: DataTypes.STRING,
-    displayName: DataTypes.STRING,
-    isEmailPublic: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    }
+    token: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
-        User.hasMany(models.Song)
-        User.hasMany(models.Recent)
-        User.hasMany(models.Bookmark)
+      associate: (models) => {
+        models.User.hasMany(models.Song)
+        models.User.hasMany(models.Recent)
+        models.User.hasMany(models.Bookmark)
       }
     },
     hooks: {
@@ -40,11 +37,9 @@ module.exports = function(sequelize, DataTypes) {
       beforeSave: hashPassword
     },
     instanceMethods: {
-      comparePassword: function(candidatePassword) {
+      comparePassword: function (candidatePassword) {
         return bcrypt.compareAsync(candidatePassword, this.password)
       }
     }
   })
-  return User
-}
 

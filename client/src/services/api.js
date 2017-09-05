@@ -6,7 +6,7 @@ export default () => {
   const connector = axios.create({
     baseURL: `http://localhost:8081/`,
     headers: {
-      Authorization: `Bearer ${store.state.basicAuthHeader}`
+      Authorization: `Bearer ${store.state.token}`
     }
   })
   const methods = [
